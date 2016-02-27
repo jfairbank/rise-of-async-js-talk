@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Async Function Timing: Sequential vs. Parallel</title>
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="/assets/solarized-dark.css">
+  <script src="/assets/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div class="left-column">
+    <h2>Async Function Timing:<br/>Sequential vs. Parallel</h2>
+    
+    <p>
+      <button id="sequential">Run Sequentially</button>
+    </p>
+    
+    <p>
+      <button id="parallel">Run in Parallel</button>
+    </p>
+
+    <pre id="sequential-code" class="code-block hide">
+      <code class="javascript">
+async function printOrders(orderIds) {
+  for (const id of orderIds) {
+    const order = await fetchOrder(id);
+    console.log(order);
+  }
+}
+      </code>
+    </pre>
+
+    <pre id="parallel-code" class="code-block hide">
+      <code class="javascript">
+async function printOrders(orderIds) {
+  const orders = await Promise.all(
+    orderIds.map(fetchOrder)
+  );
+
+  orders.forEach(order => {
+    console.log(order)
+  });
+}
+      </code>
+    </pre>
+  </div>
+
+  <div class="right-column">
+    <h2>Results:</h2>
+    <pre id="logger"></pre>
+  </div>
+
+  <script src="/assets/bundle.js"></script>
+</body>
+</html>

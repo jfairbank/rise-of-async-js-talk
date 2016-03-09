@@ -3,7 +3,7 @@ function fetchOrder(orderId) {
     .then(response => response.json());
 }
 
-async printOrder(orderId) {
+async function printOrder(orderId) {
   const order = await fetchOrder(orderId);
   console.log(order);
 }

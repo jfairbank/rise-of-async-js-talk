@@ -1,4 +1,4 @@
-async function printOrder(orderId) {
+async function findOrCreateOrder(orderId) {
   let order;
 
   if (await orderExists(orderId)) {

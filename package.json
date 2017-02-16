@@ -5,6 +5,7 @@
   "description": "Code samples, demos, and resources for \"The Rise of Async JavaScript\" talk",
   "main": "index.js",
   "scripts": {
+    "api:deploy": "git subtree push --prefix api heroku master",
     "demo": "webpack-dev-server --content-base ./demo/public --inline --hot --host 127.0.0.1 --port 8080",
     "demo:build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"

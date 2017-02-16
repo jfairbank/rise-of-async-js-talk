@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "json-server --watch db.json",
+    "start": "json-server --read-only --port $PORT db.json"
+  },
+  "dependencies": {
+    "json-server": "^0.9.5"
+  }
+}

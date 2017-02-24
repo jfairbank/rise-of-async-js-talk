@@ -32,4 +32,4 @@ node_modules
 # Optional REPL history
 .node_repl_history
 Gemfile.lock
-demo/public/assets/bundle.js
+demo/public

@@ -1,25 +1,3 @@
-class WebSocket {
-  constructor() {
-    this.listeners = [];
-
-    Observable.range(1, 5)
-      .concatMap(n => Observable.of(n).delay(Math.random() * 1000))
-      .subscribe(x => this.emit(x));
-  }
-
-  emit(data) {
-    const event = { data };
-
-    this.listeners.forEach((listener) => {
-      listener(event);
-    });
-  }
-
-  addEventListener(_, listener) {
-    this.listeners.push(listener);
-  }
-}
-
 const socket = new WebSocket('ws://example.com');
 
 const stream = Observable.create((subscriber) => {

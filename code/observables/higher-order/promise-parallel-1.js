@@ -1,18 +1,3 @@
-function fetchOrder(id) {
-  console.log('making promise request for order with id', id);
-
-  return new Promise((resolve) => {
-    const time = Math.random() * 2000;
-
-    setTimeout(() => {
-      resolve({
-        id,
-        name: `Order ${id}`,
-      });
-    }, time);
-  });
-}
-
 const promise = Promise.all([
   fetchOrder(1),
   fetchOrder(2),

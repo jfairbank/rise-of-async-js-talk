@@ -1,50 +1,13 @@
-import resourceTimer from './resourceTimer';
-import { time } from './util';
-import * as runners from './runners';
-import { clear } from './logger';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const sequential = document.querySelector('#sequential');
-const parallel = document.querySelector('#parallel');
-
-let running = false;
-
-function disable() {
-  running = true;
-  sequential.disabled = parallel.disabled = true;
+function render() {
+  const App = require('containers/App').default;
+  ReactDOM.render(<App />, document.getElementById('main'));
 }
 
-function enable() {
-  running = false;
-  sequential.disabled = parallel.disabled = false;
+if (module && module.hot) {
+  module.hot.accept('containers/App', render);
 }
 
-function hideCodeBlocks() {
-  Array.from(document.querySelectorAll('.code-block')).forEach(el => {
-    el.classList.add('hide');
-  });
-}
-
-function showCodeBlock(type) {
-  document.getElementById(`${type}-code`).classList.remove('hide');
-}
-
-const run = (type) => async function typeAppliedRun() {
-  if (running) {
-    return;
-  }
-
-  hideCodeBlocks();
-  showCodeBlock(type);
-
-  const fn = ::runners[type];
-
-  clear();
-  disable();
-
-  await time(type, () => fn(resourceTimer.generateResources(type)));
-
-  enable();
-};
-
-sequential.addEventListener('click', run('sequential'));
-parallel.addEventListener('click', run('parallel'));
+render();

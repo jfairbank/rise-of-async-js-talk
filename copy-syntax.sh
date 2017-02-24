@@ -3,12 +3,11 @@
 FONT_SIZE=80
 FONT_FAMILY=Monaco
 STYLE=molokai
+# STYLE=monokai
 SYNTAX=js
 OUTPUT=rtf
-FILTER=false
-START=1
 
-while getopts ":s:S:K:L:f" OPT; do
+while getopts ":s:S:K" OPT; do
   case $OPT in
     s)
       STYLE="$OPTARG"
@@ -21,14 +20,6 @@ while getopts ":s:S:K:L:f" OPT; do
     K)
       FONT_SIZE="$OPTARG"
       shift 2
-      ;;
-    L)
-      START="$OPTARG"
-      shift 2
-      ;;
-    f)
-      FILTER=true
-      shift
       ;;
     \?)
       exit 1
@@ -43,10 +34,5 @@ if [[ -z "$FILENAME" ]]; then
   exit 1
 fi
 
-if [[ "$FILTER" == true ]]; then
-  CONTENTS=$(cat "$FILENAME" | grep -Ev "^(?:import|export)")
-else
-  CONTENTS=$(cat "$FILENAME")
-fi
-
-echo "$CONTENTS" | tail -n+"$START"| highlight -s "$STYLE" -O "$OUTPUT" -S "$SYNTAX" -K "$FONT_SIZE" -k "$FONT_FAMILY" | tr -d '\n' | pbcopy
+highlight -s "$STYLE" -O "$OUTPUT" -S "$SYNTAX" -K "$FONT_SIZE" -k "$FONT_FAMILY" "$FILENAME" | tr -d '\n' | pbcopy
+# pygmentize -f "$OUTPUT" -O "style=$STYLE,fontface=$FONT_FAMILY,fontsize=$FONT_SIZE" "$FILENAME" | pbcopy

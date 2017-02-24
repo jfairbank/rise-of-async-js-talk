@@ -1,0 +1,9 @@
+pre {
+  border: 0 none;
+  border-radius: 0;
+  padding: 0;
+}
+
+pre .hljs {
+  padding: 20px;
+}
